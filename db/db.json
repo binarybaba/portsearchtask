@@ -1,0 +1,39 @@
+{
+    "ports": [
+        {
+            "id": "NOOSL",
+            "country": "NO",
+            "name": "Oslo"
+        },
+        {
+            "id": "CNSGH",
+            "country": "CN",
+            "name": "Shanghai"
+        },
+        {
+            "id": "CNSTG",
+            "country": "CN",
+            "name": "Shantou"
+        },
+        {
+            "id": "NLRTM",
+            "country": "NL",
+            "name": "Rotterdam"
+        },
+        {
+            "id": "DEHAM",
+            "country": "DE",
+            "name": "Hamburg"
+        },
+        {
+            "id": "GBFXT",
+            "country": "GB",
+            "name": "Felixstowe"
+        },
+        {
+            "id": "USNYC",
+            "country": "US",
+            "name": "New York"
+        }
+    ]
+}
