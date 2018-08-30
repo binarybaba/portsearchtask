@@ -1,46 +1,48 @@
 var express = require('express');
 var router = express.Router();
-const low = require('lowdb')
-const FileAsync = require('lowdb/adapters/FileAsync')
-
-const adapter = new FileAsync('db/db.json')
+const db = require('../db/index.js');
 
 function escapeRegExp(string) {
     return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
 router.get('/ports/:id', function (req, res) {
-    low(adapter)
-        .then(db => {
-            return db.get('ports')
-                .find({ 'id': req.params.query.toUpperCase()})
-                .value();
-        })
-        .then(result => {
-            res.send(result);
-        })
+        db.getPort(req.params.id)
+            .then(result => {
+                res.send(result ? result : {});
+            })
 });
 
 router.get('/ports/search/:query', function(req, res) {
-    low(adapter)
-        .then(db => { 
-            return db.get('ports')
-                .map(obj => { 
-                    const re = new RegExp(escapeRegExp(req.params.query), 'i');
-                    if (
-                        obj.id.includes(req.params.query.toUpperCase())
-                        || obj.name.match(re)
-                    ) {
-                        return obj;
-                    }
-                    return false;
-                })
-                .filter()
-                .value();
+    const query = escapeRegExp(req.params.query);
 
-        })
+    db.searchPorts(query)
         .then(result => {
-            res.send(result);
+            res.send({ results: result });
+        })
+});
+
+router.get('/rates/:origin/:destination/:fromdate/:todate', function(req, res) {
+    const ISO8601RegEx = /(\d{4})-(\d{2})-(\d{2})/;
+
+    if(req.params.fromdate > req.params.todate) {
+        res.send(400);
+    }
+
+    if(
+        !ISO8601RegEx.test(req.params.fromdate)
+        || !ISO8601RegEx.test(req.params.todate)
+    ) {
+        res.send(400);
+    }
+
+    const { origin, destination, fromdate, todate } = req.params;
+
+    db.getRates(origin, destination, fromdate, todate)
+        .then(result => {
+            res.send({
+                rates: result ? result : []
+            });
         })
 });
 
