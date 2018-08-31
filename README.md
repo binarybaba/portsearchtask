@@ -25,16 +25,16 @@ Please read the full document for further instructions and pray nothing self-des
 
 # Building
 The project will build HTML using EJS templates from the `views` folder. Client-side JavaScript is built
-from the `src/index.js` entrypoint with Webpack 4 and Babel 6. CSS is currently loaded
+from the `src/index.js` entrypoint with Webpack 4 and Babel 7. CSS is currently loaded
 statically from the `public/stylesheets` folder.
 
 You are free to install any frameworks, libraries, and software you want using NPM or Yarn. You can also change
-any aspect of the build process if needed. For example, the build setup supports JSX out of the box,
-but if you prefer using e.g. Vue.js and SASS, we're not going to stop you.
+any aspect of the build process if needed. For example, the build setup supports React/JSX out of the box,
+but if you are more comfortable using for example Vue.js, we're not going to stop you.
 
 # API
-Provided is a simple API server that allows looking up ports and querying for time-series of prices between
-the respective ports. It starts on http://localhost:3000/
+Provided is a simple web server, with an API that allows looking up ports and querying for time-series of freight
+rates between the respective ports. It is available from http://localhost:3000/
 
 ## /api/ports/:id
 Returns a single port based on the provided port code. (NOOSL, CNSGH, NLRTM)
@@ -61,7 +61,7 @@ containing the date and the price for that given day.
 {"rates":[["2018-06-30",1972],["2018-07-01",2022],["2018-07-02",2022],["2018-07-03",2022]]}
 ```
 
-Note that The dataset only contains data between `2017-08-30` and `2018-06-30`. If there is no rate available
+Note that the dataset only contains data between `2017-08-30` and `2018-06-30`. If there is no rate available
 on a specific date within the dataset, the price is set to `null`.
 
 # Evaluation

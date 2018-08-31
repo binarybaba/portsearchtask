@@ -1,4 +1,4 @@
 node_modules
 .DS_Store
 thumbs.db
-public/javascripts
+public/javascripts/
