@@ -9,7 +9,7 @@ $ npm install
 $ npm run build
 # Watcher build (Rebuilds on file changes)
 $ npm run watch
-# Start development server
+# Start development server at localhost:3000
 $ npm start
 ```
 
