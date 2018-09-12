@@ -1,20 +1,52 @@
+const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 module.exports = {
-    entry: ['@babel/polyfill', './src/index.js'],
+    context: __dirname,
+    entry:  './src/App',
+    devtool: 'cheap-eval-source-map',
     output: {
-        path: __dirname + '/public/javascripts',
-        publicPath: '/javascripts',
-        filename: 'app.js'
+        path: path.join(__dirname, 'public'),
+        filename: 'bundle.js'
+    },
+    devServer: {
+        publicPath: '/public/',
+        historyApiFallback: true,
+        overlay: true,
+        proxy: {
+            "/api" : {
+                target: 'http://localhost:3000'
+            }
+        }
+    },
+    stats: {
+        colors: true,
+        reasons: true,
+        chunks: true
     },
     module: {
-        rules: [
-            {
-                test: /\.(js|jsx)$/,
-                exclude: /node_modules/,
-                use: ['babel-loader']
-            }
-        ]
+        rules: [{
+            enforce: 'pre',
+            test: /\.jsx?$/,
+            loader: 'eslint-loader',
+            exclude: /node_modules/
+        }, {
+            test: /.jsx?$/,
+            loader: 'babel-loader',
+            exclude: /nod_modules/
+        }, {
+            test: /\.css$/,
+            use: ExtractTextPlugin.extract({
+                use: "css-loader",
+            })
+        }]
     },
     resolve: {
-        extensions: ['*', '.js', '.jsx']
+        extensions: ['.js', '.jsx']
     },
+    plugins: [
+        new ExtractTextPlugin({
+            filename: "bundle.css"
+        })
+    ]
 };

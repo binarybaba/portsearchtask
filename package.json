@@ -3,22 +3,22 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "webpack --config webpack.config.js --mode development",
+    "build": "webpack --config webpack.config.js --mode=development",
     "start": "node ./bin/www",
-    "watch": "npm run build -- --watch & nodemon npm start"
+    "watch": "npm run build -- --watch & nodemon npm start",
+    "dev": "node ./bin/www & webpack-dev-server --mode=development"
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
-    "cookie-parser": "~1.4.3",
-    "debug": "~2.6.9",
-    "ejs": "~2.5.7",
-    "express": "~4.16.0",
-    "http-errors": "~1.6.2",
-    "lowdb": "^1.0.0",
-    "morgan": "~1.9.0",
-    "nodemon": "^1.18.3",
-    "webpack": "^4.16.5",
-    "webpack-cli": "^3.1.0"
+    "axios": "^0.18.0",
+    "babel-eslint": "^9.0.0",
+    "css-loader": "^1.0.0",
+    "downshift": "^2.2.2",
+    "extract-text-webpack-plugin": "^4.0.0-alpha.0",
+    "react": "^16.5.0",
+    "react-dom": "^16.5.0",
+    "react-router-dom": "^4.3.1",
+    "styled-components": "^3.4.6"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
@@ -33,6 +33,28 @@
     "@babel/plugin-syntax-import-meta": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
-    "babel-loader": "^8.0.0"
+    "babel-loader": "^8.0.2",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "ejs": "~2.5.7",
+    "eslint": "^5.5.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-react": "^1.1.7",
+    "eslint-loader": "^2.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.1",
+    "express": "~4.16.0",
+    "http-errors": "~1.6.2",
+    "lowdb": "^1.0.0",
+    "morgan": "~1.9.0",
+    "nodemon": "^1.18.3",
+    "webpack": "^4.16.5",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.8"
   }
 }
