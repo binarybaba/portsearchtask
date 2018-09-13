@@ -1,10 +1,48 @@
-import axios from 'axios';
+import React, { Component } from 'react';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+} from 'react-router-dom';
+import { render } from 'react-dom';
+import { injectGlobal } from 'styled-components';
+import Landing from './Component/Landing'; // eslint-disable-line
+import Results from './Component/Results'; // eslint-disable-line
 
-axios.get('/api/ports/NOOSL')
-    .then(res => console.log(res.data));
+// eslint-disable-next-line
+injectGlobal`
+    html {
+        font-family: 'Nunito', sans-serif;
+    }
+`;
 
-axios.get('/api/ports/search/shan')
-    .then(res => console.log(res.data));
 
-axios.get('/api/rates/NOOSL/CNSTG/2018-06-30/2018-08-30')
-    .then(res => console.log(res.data));
+class App extends Component { // eslint-disable-line
+    render() {
+        return (
+            <Router>
+                <Switch>
+                    <Route
+                      exact
+                      path="/"
+                      render={props => (
+                          <Landing
+                            {...props}
+                          />
+                      )}
+                    />
+                    <Route
+                      exact
+                      path="/results/:origin/:destination/:fromDate/:toDate"
+                      render={props => (
+                          <Results
+                            {...props}
+                          />
+                      )}
+                    />
+                </Switch>
+            </Router>
+        );
+    }
+}
+render(<App />, document.getElementById('root'));
