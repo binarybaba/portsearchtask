@@ -6,7 +6,7 @@
     "build": "webpack --config webpack.config.js --mode=development",
     "start": "node ./bin/www",
     "watch": "npm run build -- --watch & nodemon npm start",
-    "dev": "node ./bin/www & webpack-dev-server --mode=development"
+    "dev": "node ./bin/www & webpack-dev-server --mode=development --open"
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
@@ -36,8 +36,6 @@
     "babel-loader": "^8.0.2",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "ejs": "~2.5.7",
