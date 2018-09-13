@@ -1,25 +1,64 @@
 import React, { Component } from 'react';
-import { debounce } from '../../Util';
+// import { debounce } from '../../Util';
 import SelectPorts from './SelectPorts/Index';
+import { searchPort } from '../../API';
 
 
 class Landing extends Component {
-    state = {
-        foo: 'bar', // eslint-disable-line
-    };
+    state = {};
 
-    search(input) { // eslint-disable-line
-        if (input.length) {
-            debounce(() => {
-                console.log(input);
-            });
+    handleOriginPortChange(searchKey) {
+        return this.searchForPorts(searchKey);
+    }
+
+    handleOriginPortClear() { // eslint-disable-line
+        this.setState(() => ({ originPort: null }));
+    }
+
+    handleOriginPortSelect(originPort) { // eslint-disable-line
+        this.setState(() => ({ originPort }));
+    }
+
+    handleDestinationPortChange(searchKey) {
+        return this.searchForPorts(searchKey);
+    }
+
+    handleDestinationPortClear() { // eslint-disable-line
+        this.setState(() => ({ destinationPort: null }));
+    }
+
+    handleDestinationPortSelect(destinationPort) { // eslint-disable-line
+        this.setState(() => ({ destinationPort }));
+    }
+
+    handleGoForward(e) {
+        e.preventDefault();
+        const { originPort, destinationPort } = this.state;
+        const { history } = this.props;
+        history.push(`/results/${originPort.id}/${destinationPort.id}/from/to`);
+    }
+
+    searchForPorts(query) { // eslint-disable-line
+        if (query.length) {
+            return searchPort(query);
         }
     }
 
     render() {
+        const { originPort, destinationPort } = this.state;
+        const enableGo = (!!originPort && !!destinationPort);
         return (
             <div>
-                <SelectPorts />
+                <SelectPorts
+                    handleOriginPortChange={this.handleOriginPortChange.bind(this)}
+                    handleOriginPortClear={this.handleOriginPortClear.bind(this)}
+                    handleOriginPortSelect={this.handleOriginPortSelect.bind(this)}
+                    handleDestinationPortChange={this.handleDestinationPortChange.bind(this)}
+                    handleDestinationPortClear={this.handleDestinationPortClear.bind(this)}
+                    handleDestinationPortSelect={this.handleDestinationPortSelect.bind(this)}
+                    enableGo={enableGo}
+                    handleGoForward={this.handleGoForward.bind(this)}
+                />
             </div>
         );
     }

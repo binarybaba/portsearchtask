@@ -33,7 +33,7 @@ class App extends Component { // eslint-disable-line
                     />
                     <Route
                       exact
-                      path="/results/:origin/:destination/:fromDate/:toDate"
+                      path="/results/:originPortId/:destinationPortId/:fromDate/:toDate"
                       render={props => (
                           <Results
                             {...props}
