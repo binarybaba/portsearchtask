@@ -33,7 +33,7 @@ module.exports = {
         }, {
             test: /.jsx?$/,
             loader: 'babel-loader',
-            exclude: /nod_modules/
+            exclude: /node_modules/
         }, {
             test: /\.css$/,
             use: ExtractTextPlugin.extract({
