@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import { debounce } from '../../Util';
+import * as CONSTANT from '../../CONSTANT';
 import SelectPorts from './SelectPorts/Index';
 import { searchPort } from '../../API';
 
@@ -34,8 +34,9 @@ class Landing extends Component {
     handleGoForward(e) {
         e.preventDefault();
         const { originPort, destinationPort } = this.state;
+        const { DEFAULT_FROM_DATE, DEFAULT_TO_DATE } = CONSTANT;
         const { history } = this.props;
-        history.push(`/results/${originPort.id}/${destinationPort.id}/from/to`);
+        history.push(`/results/${originPort.id}/${destinationPort.id}/${DEFAULT_FROM_DATE}/${DEFAULT_TO_DATE}`);
     }
 
     searchForPorts(query) { // eslint-disable-line

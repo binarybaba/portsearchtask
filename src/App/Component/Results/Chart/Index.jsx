@@ -1,22 +1,14 @@
 import React from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
+import { generateConfig } from './Util';
 
 
-const options = {
-    title: {
-        text: 'My chart',
-    },
-    series: [{
-        data: [1, 2, 3],
-    }],
-};
-
-const Chart = () => (
+const Chart = props => (
     <div>
         <HighchartsReact
             highcharts={Highcharts}
-            options={options}
+            options={generateConfig(props.series)} // eslint-disable-line
         />
     </div>
 );
