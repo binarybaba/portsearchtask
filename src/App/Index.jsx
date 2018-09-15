@@ -8,6 +8,8 @@ import { render } from 'react-dom';
 import { injectGlobal } from 'styled-components';
 import Landing from './Component/Landing'; // eslint-disable-line
 import Results from './Component/Results'; // eslint-disable-line
+import 'react-day-picker/lib/style.css';
+import '../assets/react-day-override.css';
 
 // eslint-disable-next-line
 injectGlobal`
@@ -33,7 +35,7 @@ class App extends Component { // eslint-disable-line
                     />
                     <Route
                       exact
-                      path="/results/:originPortId/:destinationPortId/:fromDate/:toDate"
+                      path="/results/:originPortId/:destinationPortId/:from/:to"
                       render={props => (
                           <Results
                             {...props}
