@@ -59,26 +59,6 @@ class Results extends Component { // eslint-disable-line
             });
     }
 
-    // fetchRates() {
-    //     const {
-    //         originPort,
-    //         destinationPort,
-    //         from,
-    //         to,
-    //     } = this.state;
-    //     this.setState(() => ({ renderingChart: true }));
-    //     getRates({
-    //         originPort,
-    //         destinationPort,
-    //         from,
-    //         to,
-    //     })
-    //         .then((res) => {
-    //             const { rates } = res.data;
-    //             this.setState(() => ({ renderingChart: false, rates }));
-    //         });
-    // }
-
     render() {
         const {
             from,
