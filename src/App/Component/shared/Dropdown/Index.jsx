@@ -50,7 +50,7 @@ class Dropdown extends Component {
         const { items, isClearDisabled } = this.state;
         return (
             <Downshift
-                itemToString={item => (item ? item.name : '')}
+                itemToString={item => (item ? `${item.name} (${item.id})` : '')}
                 onChange={selection => this.handleSelection(selection)}
             >
                 {({
