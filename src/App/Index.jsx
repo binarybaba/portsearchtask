@@ -9,7 +9,6 @@ import { injectGlobal } from 'styled-components';
 import Landing from './Component/Landing'; // eslint-disable-line
 import Results from './Component/Results'; // eslint-disable-line
 import 'react-day-picker/lib/style.css';
-import '../assets/react-day-override.css';
 
 // eslint-disable-next-line
 injectGlobal`
