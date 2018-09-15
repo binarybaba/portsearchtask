@@ -1,13 +1,8 @@
 import axios from 'axios';
 import { BASE_URL } from '../../CONSTANT';
 
-const getRates = ({
-                      originPortId,
-                      destinationPortId,
-                      fromDate,
-                      toDate,
-}) => axios.get(`${BASE_URL}/rates/${originPortId}/${destinationPortId}/${fromDate}/${toDate}`);
+const getPortDetails = portId => axios.get(`${BASE_URL}/ports/${portId}`);
 
 export {
-    getRates, // eslint-disable-line
+    getPortDetails, // eslint-disable-line
 };

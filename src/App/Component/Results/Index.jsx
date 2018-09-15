@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Chart from './Chart/Index';
-import { getRates } from './Api';
-import { toTimestampSeries } from './Util';
+import { getPortDetails } from './Api';
+import { timeStampToISO } from './Util';
+import Dates from './Dates/Index';
 
 class Results extends Component { // eslint-disable-line
 
-    state = {
-        renderingChart: true,
+    static propTypes = {
+        history: PropTypes.object.isRequired, // eslint-disable-line
+        match: PropTypes.object.isRequired, // eslint-disable-line
+        location: PropTypes.object.isRequired, // eslint-disable-line
     };
+
+    state = {};
 
     componentDidMount() {
         const { match } = this.props;
@@ -16,41 +21,91 @@ class Results extends Component { // eslint-disable-line
         const {
             originPortId,
             destinationPortId,
-            fromDate,
-            toDate,
+            from,
+            to,
         } = params;
-        this.setRates({
-            originPortId,
-            destinationPortId,
-            fromDate,
-            toDate,
-        });
+        this.setInitialState(originPortId, destinationPortId, from, to);
     }
 
-    setRates(filters) {
-        this.setState(() => ({ renderingChart: true }));
-        getRates(filters)
-            .then((res) => {
-                const rates = toTimestampSeries(res.data.rates);
-                this.setState(() => ({ renderingChart: false, rates }));
+    setPorts(originPort, destinationPort) {
+        this.setState(() => ({ originPort, destinationPort }));
+    }
+
+    setDateRange(range) {
+        const from = timeStampToISO(range.from);
+        const to = timeStampToISO(range.to);
+        this.setState(() => ({ from, to }));
+        const { history } = this.props;
+        const {
+            originPort,
+            destinationPort,
+        } = this.state;
+        history.push(`/results/${originPort.id}/${destinationPort.id}/${from}/${to}`);
+    }
+
+    /*
+    * Sets the initial state ie port, destination, from and to.
+    * */
+    setInitialState(originPortId, destinationPortId, from, to) {
+        getPortDetails(originPortId)
+            .then((originPortResponse) => {
+                getPortDetails(destinationPortId)
+                    .then(destinationPortResponse => this.setState(() => ({
+                        originPort: originPortResponse.data,
+                        destinationPort: destinationPortResponse.data,
+                        from,
+                        to,
+                    })));
             });
     }
 
+    // fetchRates() {
+    //     const {
+    //         originPort,
+    //         destinationPort,
+    //         from,
+    //         to,
+    //     } = this.state;
+    //     this.setState(() => ({ renderingChart: true }));
+    //     getRates({
+    //         originPort,
+    //         destinationPort,
+    //         from,
+    //         to,
+    //     })
+    //         .then((res) => {
+    //             const { rates } = res.data;
+    //             this.setState(() => ({ renderingChart: false, rates }));
+    //         });
+    // }
+
     render() {
-        const { rates, renderingChart } = this.state;
+        const {
+            from,
+            to,
+            originPort,
+            destinationPort,
+        } = this.state;
+        const chartPropsResolved = (!!from && !!to && !!originPort && !!destinationPort);
+        const dateSelectorPropsResolved = (!!from && !!to);
         return (
             <div>
-                <h1>Results</h1>
-                <Link to="/">Landing</Link>
-                <Chart
-                    series={rates}
-                    loading={renderingChart}
-                />
-                <pre>
-                    <code>
-                        { JSON.stringify(this.props, null, 4) }
-                    </code>
-                </pre>
+                {!dateSelectorPropsResolved ? null : (
+                    <Dates
+                        from={from}
+                        to={to}
+                        setDateRange={this.setDateRange.bind(this)}
+                    />
+                )}
+                { !chartPropsResolved ? null : (
+                    <Chart
+                        from={from}
+                        to={to}
+                        originPort={originPort}
+                        destinationPort={destinationPort}
+                    />
+                )}
+
             </div>
         );
     }
