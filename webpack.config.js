@@ -34,6 +34,10 @@ module.exports = {
             test: /.jsx?$/,
             loader: 'babel-loader',
             exclude: /node_modules/
+        },{
+            test: /.svg$/,
+            loader: 'svg-loader',
+            exclude: /node_modules/
         }, {
             test: /\.css$/,
             use: ExtractTextPlugin.extract({

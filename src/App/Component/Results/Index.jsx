@@ -85,7 +85,6 @@ class Results extends Component { // eslint-disable-line
                         destinationPort={destinationPort}
                     />
                 )}
-
             </div>
         );
     }

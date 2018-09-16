@@ -1,6 +1,10 @@
 export const BASE_URL = '/api';
 
 export const BACKGROUND_COLOR = '#f8f8f9';
+export const SUBTLE_BACKGROUND_COLOR = '#fafafa';
+export const PRIMARY_COLOR = '#212121';
+export const SECONDARY_COLOR = '#3e3e3e';
+export const TERTIARY_COLOR = '#686868';
 export const BORDER_COLOR = '#dedede';
 export const HIGHLIGHTED_BLACK = '#323756';
 

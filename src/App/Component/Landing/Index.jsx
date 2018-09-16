@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import * as CONSTANT from '../../CONSTANT';
 import SelectPorts from './SelectPorts/Index';
 import { searchPort } from '../../API';
+import Navbar from './Styled/Navbar';
+import Logo from './Styled/Logo';
+import Map from './Styled/Map';
 
 
 class Landing extends Component {
@@ -50,6 +53,10 @@ class Landing extends Component {
         const enableGo = (!!originPort && !!destinationPort);
         return (
             <div>
+                <Navbar>
+                    <Logo />
+                </Navbar>
+                <Map />
                 <SelectPorts
                     handleOriginPortChange={this.handleOriginPortChange.bind(this)}
                     handleOriginPortClear={this.handleOriginPortClear.bind(this)}

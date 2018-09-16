@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import Downshift from 'downshift';
-// import { searchPort } from '../API';
+
+import {
+    Ports,
+    Port,
+} from '../../Landing/SelectPorts/Styled/Components';
 
 class Dropdown extends Component {
     state = {
         items: [],
-        isClearDisabled: true,
     };
 
     handleDownshiftInputChange = (e) => {
@@ -26,32 +29,13 @@ class Dropdown extends Component {
         return [];
     }
 
-    handleSelection(item) {
-        const { onSelect } = this.props;
-        this.setState(() => ({ isClearDisabled: false }));
-        if (item) {
-            if (onSelect) {
-                onSelect(item);
-            }
-        }
-        return null;
-    }
-
-    handleReset() { // eslint-disable-line
-        // e.preventDefault();
-        const { onClearSelection } = this.props;
-        this.setState(() => ({ isClearDisabled: true }));
-        if (onClearSelection) {
-            onClearSelection();
-        }
-    }
-
     render() {
-        const { items, isClearDisabled } = this.state;
+        const { items } = this.state;
+        const { onSelect, onClearSelection, placeholder } = this.props;
         return (
             <Downshift
                 itemToString={item => (item ? `${item.name} (${item.id})` : '')}
-                onChange={selection => this.handleSelection(selection)}
+                onChange={selection => onSelect(selection)}
             >
                 {({
                     getInputProps,
@@ -67,35 +51,38 @@ class Dropdown extends Component {
                             type="text"
                             {...getInputProps({
                                 onChange: this.handleDownshiftInputChange,
+                                placeholder,
                             })}
                         />
                         <button
                             type="button"
-                            disabled={isClearDisabled}
-                            onClick={() => clearSelection(this.handleReset())}
+                            disabled={!selectedItem}
+                            onClick={() => clearSelection(() => onClearSelection())}
                         >
-                            X
+                            <i className="fas fa-2x fa-times" />
                         </button>
                         {
-                            !(isOpen && items.length) ? null : (
-                                <ul {...getMenuProps()}>
-                                    {items.map((item, index) => (
-                                        <li
-                                            {...getItemProps({
-                                                item,
-                                                key: item.id,
-                                                style: {
-                                                    backgroundColor:
-                                                        highlightedIndex === index ? 'lightgray' : 'white',
-                                                    fontWeight: selectedItem === item ? 'bold' : 'normal',
-                                                },
-                                            })}
-                                        >
-                                            {item.name}
-                                        </li>
-                                    ))}
-                                </ul>
-                            )
+                            <Ports opened={isOpen} {...getMenuProps()}>
+                                {items.map((item, index) => (
+                                    <Port
+                                        isHighlighted={highlightedIndex === index}
+                                        isSelected={selectedItem === item}
+                                        {...getItemProps({
+                                            item,
+                                            key: item.id,
+                                            style: {
+                                                backgroundColor: highlightedIndex === index ? '#212121' : '#fafafa',
+                                                color: highlightedIndex === index ? '#fafafa' : '#212121',
+                                            },
+                                        })}
+                                    >
+                                        <div>
+                                            <h1>{item.name}</h1>
+                                            <h2>{item.country}</h2>
+                                        </div>
+                                    </Port>
+                                ))}
+                            </Ports>
                         }
                     </div>
                 )}
