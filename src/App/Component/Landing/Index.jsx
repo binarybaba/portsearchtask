@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import * as CONSTANT from '../../CONSTANT';
 import SelectPorts from './SelectPorts/Index';
 import { searchPort } from '../../API';
-import Navbar from './Styled/Navbar';
-import Logo from './Styled/Logo';
-import Map from './Styled/Map';
+import { Navbar, Logo, Map } from './Styled/Components';
 
 
 class Landing extends Component {
