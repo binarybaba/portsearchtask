@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { SUBTLE_BACKGROUND_COLOR } from "../../../CONSTANT";
+import { SUBTLE_BACKGROUND_COLOR } from '../../../CONSTANT';
 
 export const LogoWrapper = styled.div`
     max-width: 100px;

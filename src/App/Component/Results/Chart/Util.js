@@ -1,4 +1,5 @@
-import Highcharts from 'highcharts';
+// import Highcharts from 'highcharts';
+// import { SUBTLE_BACKGROUND_COLOR } from '../../../CONSTANT';
 
 
 const chartTemplate = {
@@ -6,6 +7,8 @@ const chartTemplate = {
       enabled: false,
     },
     chart: {
+        // backgroundColor: SUBTLE_BACKGROUND_COLOR,
+        backgroundColor: 'rgba(255, 255, 255, 0.0)',
     },
     title: {
         useHTML: true,
@@ -37,8 +40,8 @@ const chartTemplate = {
                     y2: 1,
                 },
                 stops: [
-                    [0, Highcharts.getOptions().colors[0]],
-                    [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')],
+                    [0, '#212121'],
+                    [1, 'rgba(255, 255, 255, 0.0)'],
                 ],
             },
             marker: {
@@ -52,12 +55,17 @@ const chartTemplate = {
             },
             threshold: null,
         },
+        series: {
+            color: '#212121',
+            marker: {
+                enabled: false,
+            },
+        },
     },
 
     series: [{
         type: 'area',
         name: 'Rate',
-        // data: data
     }],
 };
 

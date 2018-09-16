@@ -9,12 +9,13 @@ import { injectGlobal } from 'styled-components';
 import Landing from './Component/Landing'; // eslint-disable-line
 import Results from './Component/Results'; // eslint-disable-line
 import 'react-day-picker/lib/style.css';
-import { BACKGROUND_COLOR } from './CONSTANT';
+import { BACKGROUND_COLOR, SUBTLE_BACKGROUND_COLOR } from './CONSTANT';
 
 // eslint-disable-next-line
 injectGlobal`
     html {
         font-family: 'Nunito', sans-serif;
+        background-color: ${SUBTLE_BACKGROUND_COLOR}
     }
     background-color: ${BACKGROUND_COLOR};
 `;

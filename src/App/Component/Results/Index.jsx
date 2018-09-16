@@ -1,9 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Chart from './Chart/Index';
+import { Logo } from '../Landing/Styled/Components';
 import { getPortDetails } from './Api';
-import { timeStampToISO } from './Util';
+import { timeStampToISO, stringDateToHuman } from './Util';
 import Dates from './Dates/Index';
+
+import {
+    Wrapper,
+    Navbar,
+    ResultsWrapper,
+    GraphWrapper,
+    HeadingWrapper,
+    Heading,
+} from './Styled/Components';
+import DatePreview from './DatePreview/Index';
 
 class Results extends Component { // eslint-disable-line
 
@@ -25,6 +37,10 @@ class Results extends Component { // eslint-disable-line
             to,
         } = params;
         this.setInitialState(originPortId, destinationPortId, from, to);
+    }
+
+    componentDidUpdate() {
+        console.log('updated', this.props);
     }
 
     setPorts(originPort, destinationPort) {
@@ -69,23 +85,44 @@ class Results extends Component { // eslint-disable-line
         const chartPropsResolved = (!!from && !!to && !!originPort && !!destinationPort);
         const dateSelectorPropsResolved = (!!from && !!to);
         return (
-            <div>
-                {!dateSelectorPropsResolved ? null : (
-                    <Dates
-                        from={from}
-                        to={to}
-                        setDateRange={this.setDateRange.bind(this)}
-                    />
-                )}
+            <Wrapper>
+                <Navbar>
+                    <Link to="/" href="/">
+                        <Logo />
+                    </Link>
+                    {!dateSelectorPropsResolved ? null : (
+                        <DatePreview
+                            from={from}
+                            to={to}
+                            render={() => (
+                                <Dates
+                                    from={from}
+                                    to={to}
+                                    setDateRange={this.setDateRange.bind(this)}
+                                />
+                            )}
+                        />
+                    )}
+                </Navbar>
                 { !chartPropsResolved ? null : (
-                    <Chart
-                        from={from}
-                        to={to}
-                        originPort={originPort}
-                        destinationPort={destinationPort}
-                    />
+                    <ResultsWrapper>
+                        <HeadingWrapper>
+                            <Heading>
+                                <h1>{`${originPort.name} to ${destinationPort.name}`}</h1>
+                                <small>{`Showing freight rates from ${stringDateToHuman(from)} to ${stringDateToHuman(to)}`}</small>
+                            </Heading>
+                        </HeadingWrapper>
+                        <GraphWrapper>
+                            <Chart
+                                from={from}
+                                to={to}
+                                originPort={originPort}
+                                destinationPort={destinationPort}
+                            />
+                        </GraphWrapper>
+                    </ResultsWrapper>
                 )}
-            </div>
+            </Wrapper>
         );
     }
 }

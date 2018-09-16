@@ -67,20 +67,14 @@ class Chart extends Component { // eslint-disable-line
         const {
             rates,
             fetching,
-            originPort,
-            destinationPort,
-            from,
-            to,
         } = this.state;
         const options = generateConfig(
             rates,
         );
         return (
-            <div>
+            <div style={{ width: '100%' }}>
                 {fetching ? <div>Loading</div> : (
                     <div>
-                        <div>{`${originPort.name} to ${destinationPort.name}`}</div>
-                        <div>{`${from} to ${to}`}</div>
                         <HighchartsReact
                             highcharts={Highcharts}
                             options={options} // eslint-disable-line

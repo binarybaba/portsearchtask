@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import * as CONSTANT from '../../CONSTANT';
 import SelectPorts from './SelectPorts/Index';
 import { searchPort } from '../../API';
@@ -52,7 +53,9 @@ class Landing extends Component {
         return (
             <div>
                 <Navbar>
-                    <Logo />
+                    <Link to="/" href="/">
+                        <Logo />
+                    </Link>
                 </Navbar>
                 <Map />
                 <SelectPorts
