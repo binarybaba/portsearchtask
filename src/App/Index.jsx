@@ -6,8 +6,8 @@ import {
 } from 'react-router-dom';
 import { render } from 'react-dom';
 import { injectGlobal } from 'styled-components';
-import Landing from './Component/Landing'; // eslint-disable-line
-import Results from './Component/Results'; // eslint-disable-line
+import Landing from './Component/Landing/Index'; // eslint-disable-line
+import Results from './Component/Results/Index'; // eslint-disable-line
 import 'react-day-picker/lib/style.css';
 import { BACKGROUND_COLOR, SUBTLE_BACKGROUND_COLOR } from './CONSTANT';
 

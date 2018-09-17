@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -16,6 +17,8 @@ import {
     Heading,
 } from './Styled/Components';
 import DatePreview from './DatePreview/Index';
+import EditablePortNames from './EditablePortNames/Index';
+import { searchPort } from "../../API";
 
 class Results extends Component { // eslint-disable-line
 
@@ -25,7 +28,40 @@ class Results extends Component { // eslint-disable-line
         location: PropTypes.object.isRequired, // eslint-disable-line
     };
 
-    state = {};
+    state = {
+        userIsTyping: false,
+    };
+
+    handlePortChange(searchKey) {
+        console.log('user is typing');
+        this.setState(() => ({userIsTyping: true}));
+        return this.searchForPorts(searchKey);
+    }
+
+    searchForPorts(query) { // eslint-disable-line
+        if (query.length) {
+            return searchPort(query);
+        }
+    }
+    handleOriginPortSelect(originPort) {
+        const {
+            destinationPort,
+            from,
+            to,
+        } = this.state;
+        this.setState(() => ({ originPort, userIsTyping: false }));
+        this.props.history.push(`/results/${originPort.id}/${destinationPort.id}/${from}/${to}`);
+    }
+    handleDestinationPortSelect(destinationPort) {
+        const {
+            originPort,
+            from,
+            to,
+        } = this.state;
+        this.setState(() => ({ destinationPort, userIsTyping: false }));
+        this.props.history.push(`/results/${originPort.id}/${destinationPort.id}/${from}/${to}`);
+    }
+
 
     componentDidMount() {
         const { match } = this.props;
@@ -39,12 +75,23 @@ class Results extends Component { // eslint-disable-line
         this.setInitialState(originPortId, destinationPortId, from, to);
     }
 
-    componentDidUpdate() {
-        console.log('updated', this.props);
+    componentDidUpdate(prevProps) {
+        if(JSON.stringify(this.props) !== JSON.stringify(prevProps)) {
+            const { match } = this.props;
+            const { params } = match;
+            const {
+                originPortId,
+                destinationPortId,
+                from,
+                to,
+            } = params;
+            this.setInitialState(originPortId, destinationPortId, from, to);
+        }
     }
 
     setPorts(originPort, destinationPort) {
         this.setState(() => ({ originPort, destinationPort }));
+
     }
 
     setDateRange(range) {
@@ -81,6 +128,7 @@ class Results extends Component { // eslint-disable-line
             to,
             originPort,
             destinationPort,
+            userIsTyping,
         } = this.state;
         const chartPropsResolved = (!!from && !!to && !!originPort && !!destinationPort);
         const dateSelectorPropsResolved = (!!from && !!to);
@@ -107,12 +155,15 @@ class Results extends Component { // eslint-disable-line
                 { !chartPropsResolved ? null : (
                     <ResultsWrapper>
                         <HeadingWrapper>
-                            <Heading>
-                                <h1>{`${originPort.name} to ${destinationPort.name}`}</h1>
-                                <small>{`Showing freight rates from ${stringDateToHuman(from)} to ${stringDateToHuman(to)}`}</small>
-                            </Heading>
+                            <EditablePortNames
+                                originPort={originPort}
+                                destinationPort={destinationPort}
+                                onChangePort={this.handlePortChange.bind(this)}
+                                onSelectOriginPort={this.handleOriginPortSelect.bind(this)}
+                                onSelectDestinationPort={this.handleDestinationPortSelect.bind(this)}
+                            />
                         </HeadingWrapper>
-                        <GraphWrapper>
+                        <GraphWrapper userIsTyping={userIsTyping}>
                             <Chart
                                 from={from}
                                 to={to}

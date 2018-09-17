@@ -107,12 +107,12 @@ export const Ports = styled.ul`
     overflow-x: hidden;
     max-height: ${props => (props.opened ? '600px' : '0px')}
     transition: max-height 0.03s ease-in;
-        box-shadow: 0 4px 15px 0 rgba(0,0,0,0.08);
-        border-radius: .17647rem;
+    box-shadow: 0 4px 15px 0 rgba(0,0,0,0.08);
+    border-radius: .17647rem;
 `;
 
 export const Port = styled.li`
-    z-index: 1;
+    z-index: 9999999999;
     padding-left: 1.47059rem;
     font-size: 14px;
     padding-top: 12px;

@@ -6,7 +6,6 @@ import {
     SUBTLE_BACKGROUND_COLOR, TERTIARY_COLOR,
 } from '../../../CONSTANT';
 
-// eslint-disable-next-line
 export const Wrapper = styled.div`
     width: 100%;
     height: auto;
@@ -29,7 +28,7 @@ export const Navbar = styled.div`
         clear: both;
     }
     padding: 22px 0 0 0;
-    position: absolute;
+    position: fixed;
 `;
 
 export const DatesPreviewWrapper = styled.div`
@@ -136,14 +135,18 @@ export const ResultsWrapper = styled.div`
     width: 100%;
     background: url("https://blog.gliderpath.com/wp-content/uploads/2015/07/background-pattern-vector.svg") no-repeat top center;
     background-size:cover;
+    position: relative;
     
 `;
 
-export const GraphWrapper = styled.div`
+export const GraphWrapper = styled.div` 
     width: 100%;
+    opacity: ${props => (props.userIsTyping ? '0' : '1')};
+    visibility: ${props => (props.userIsTyping ? 'hidden' : 'visible')};
     position: absolute;
-    bottom: 0;
+    bottom: ${props => (props.userIsTyping ? '-1400px' : '0')};
     border-right: 1px solid ${BORDER_COLOR};
+    transition: bottom 0.2s ease, opacity 0.2s ease, visibility 0s;
 `;
 
 export const HeadingWrapper = styled.div`
@@ -154,18 +157,19 @@ export const HeadingWrapper = styled.div`
 `;
 
 export const Heading = styled.div`
-    
     font-size: 20px;
     font-weight: 500;
+    display: inline-block;
     text-align: center;
-    
-    h1 {
-    font-family: 'Ubuntu', sans-serif;
-    
+    > ul> li> div > input {
+        text-align: center;
+        background-color: transparent;
+        outline: none;
+        border: none;
+        text-align: center;
+        font-family: 'Ubuntu', sans-serif;
         font-weight: 700;
-        font-size: 48px
-        margin-top: 12px;
+        font-size: 48px;
         text-transform: uppercase
-        margin-bottom: 12px;
     }
 `;
