@@ -5,3 +5,4 @@ thumbs.db
 public/*.js
 public/*.css
 *.log
+.coverage
