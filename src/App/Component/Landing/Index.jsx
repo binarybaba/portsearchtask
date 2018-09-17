@@ -7,29 +7,36 @@ import { Navbar, Logo, Map } from './Styled/Components';
 
 
 class Landing extends Component {
-    state = {};
-
-    handleOriginPortChange(searchKey) {
-        return this.searchForPorts(searchKey);
+    static searchForPorts(query) {
+        if (query.length) {
+            return searchPort(query);
+        }
+        return null;
     }
 
-    handleOriginPortClear() { // eslint-disable-line
+    state = {};
+
+    handleOriginPortChange(searchKey) { // eslint-disable-line
+        return Landing.searchForPorts(searchKey);
+    }
+
+    handleOriginPortClear() {
         this.setState(() => ({ originPort: null }));
     }
 
-    handleOriginPortSelect(originPort) { // eslint-disable-line
+    handleOriginPortSelect(originPort) {
         this.setState(() => ({ originPort }));
     }
 
-    handleDestinationPortChange(searchKey) {
-        return this.searchForPorts(searchKey);
+    handleDestinationPortChange(searchKey) { // eslint-disable-line
+        return Landing.searchForPorts(searchKey);
     }
 
-    handleDestinationPortClear() { // eslint-disable-line
+    handleDestinationPortClear() {
         this.setState(() => ({ destinationPort: null }));
     }
 
-    handleDestinationPortSelect(destinationPort) { // eslint-disable-line
+    handleDestinationPortSelect(destinationPort) {
         this.setState(() => ({ destinationPort }));
     }
 
@@ -39,12 +46,6 @@ class Landing extends Component {
         const { DEFAULT_FROM_DATE, DEFAULT_TO_DATE } = CONSTANT;
         const { history } = this.props;
         history.push(`/results/${originPort.id}/${destinationPort.id}/${DEFAULT_FROM_DATE}/${DEFAULT_TO_DATE}`);
-    }
-
-    searchForPorts(query) { // eslint-disable-line
-        if (query.length) {
-            return searchPort(query);
-        }
     }
 
     render() {
@@ -72,7 +73,5 @@ class Landing extends Component {
         );
     }
 }
-
-// const Landing = props => ;
 
 export default Landing;

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
     BrowserRouter as Router,
     Switch,
@@ -6,10 +6,10 @@ import {
 } from 'react-router-dom';
 import { render } from 'react-dom';
 import { injectGlobal } from 'styled-components';
-import Landing from './Component/Landing/Index'; // eslint-disable-line
-import Results from './Component/Results/Index'; // eslint-disable-line
-import 'react-day-picker/lib/style.css';
+import Landing from './Component/Landing/Index';
+import Results from './Component/Results/Index';
 import { BACKGROUND_COLOR, SUBTLE_BACKGROUND_COLOR } from './CONSTANT';
+import 'react-day-picker/lib/style.css';
 
 // eslint-disable-next-line
 injectGlobal`
@@ -21,32 +21,13 @@ injectGlobal`
 `;
 
 
-class App extends Component { // eslint-disable-line
-    render() {
-        return (
-            <Router>
-                <Switch>
-                    <Route
-                      exact
-                      path="/"
-                      render={props => (
-                          <Landing
-                            {...props}
-                          />
-                      )}
-                    />
-                    <Route
-                      exact
-                      path="/results/:originPortId/:destinationPortId/:from/:to"
-                      render={props => (
-                          <Results
-                            {...props}
-                          />
-                      )}
-                    />
-                </Switch>
-            </Router>
-        );
-    }
-}
+const App = () => (
+    <Router>
+        <Switch>
+            <Route exact path="/" render={props => <Landing {...props} />} />
+            <Route exact path="/results/:originPortId/:destinationPortId/:from/:to" render={props => <Results {...props} />} />
+        </Switch>
+    </Router>
+);
+
 render(<App />, document.getElementById('root'));

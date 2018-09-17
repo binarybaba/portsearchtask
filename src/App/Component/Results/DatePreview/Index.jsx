@@ -16,6 +16,7 @@ class DatePreview extends Component { // eslint-disable-line
         window.addEventListener('click', this.handleWindowClick);
     }
 
+    // because we want the date preview to close if if the user clicks outside the box
     handleWindowClick = (e) => { // eslint-disable-line
         if (e.target.className) {
             try {

@@ -1,5 +1,4 @@
-// import Highcharts from 'highcharts';
-// import { SUBTLE_BACKGROUND_COLOR } from '../../../CONSTANT';
+import { PRIMARY_COLOR, TRANSPARENT } from '../../../CONSTANT';
 
 
 const chartTemplate = {
@@ -7,8 +6,7 @@ const chartTemplate = {
       enabled: false,
     },
     chart: {
-        // backgroundColor: SUBTLE_BACKGROUND_COLOR,
-        backgroundColor: 'rgba(255, 255, 255, 0.0)',
+        backgroundColor: TRANSPARENT,
     },
     title: {
         useHTML: true,
@@ -23,7 +21,7 @@ const chartTemplate = {
     },
     yAxis: {
         title: {
-            text: 'Freight Rate',
+            text: 'Freight Rates',
         },
         gridLineWidth: 0,
     },
@@ -40,8 +38,8 @@ const chartTemplate = {
                     y2: 1,
                 },
                 stops: [
-                    [0, '#212121'],
-                    [1, 'rgba(255, 255, 255, 0.0)'],
+                    [0, PRIMARY_COLOR],
+                    [1, TRANSPARENT],
                 ],
             },
             marker: {
@@ -56,7 +54,7 @@ const chartTemplate = {
             threshold: null,
         },
         series: {
-            color: '#212121',
+            color: PRIMARY_COLOR,
             marker: {
                 enabled: false,
             },
@@ -83,12 +81,14 @@ const ISOtoTimestamp = date => (new Date(date)).getTime();
 
 const toTimestampSeries = rates => rates.map(rate => rate.map((element) => {
     let unixTimeStamp;
-    if (typeof element === 'string') { // TODO: bad check. maybe find some way to parse and check if this can be a date object?
+    if (typeof element === 'string') {
+        // TODO: bad check. maybe parse and check if this turns out to be a date object ? Laters..
         unixTimeStamp = ISOtoTimestamp(element);
         return unixTimeStamp;
     }
     return element;
-})).sort(); // because Highcharts demands us to have a pre-sorted array for rendering performance.
+})).sort();
+// because Highcharts demands us to have a pre-sorted array for rendering performance.
 // Refer Highcharts Error #15.
 
 export {

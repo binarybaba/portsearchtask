@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Downshift from 'downshift';
-import { Port, Ports } from '../../../Landing/SelectPorts/Styled/Components';
+import { Port, Ports } from '../../../shared/Components';
+import { PRIMARY_COLOR, SUBTLE_BACKGROUND_COLOR } from '../../../../CONSTANT';
 
-class Dropdown extends Component { // eslint-disable-line
-
+class Dropdown extends Component {
     state = {
         items: [],
     };
@@ -51,7 +51,6 @@ class Dropdown extends Component { // eslint-disable-line
                             type="text"
                             {...getInputProps({
                                 onChange: this.handleDownshiftInputChange.bind(this),
-
                             })}
                         />
                         <Ports opened={isOpen} {...getMenuProps()}>
@@ -63,8 +62,10 @@ class Dropdown extends Component { // eslint-disable-line
                                         item,
                                         key: item.id,
                                         style: {
-                                            backgroundColor: highlightedIndex === index ? '#212121' : '#fafafa',
-                                            color: highlightedIndex === index ? '#fafafa' : '#212121',
+                                            backgroundColor: highlightedIndex === index
+                                                ? PRIMARY_COLOR : SUBTLE_BACKGROUND_COLOR,
+                                            color: highlightedIndex === index
+                                                ? SUBTLE_BACKGROUND_COLOR : PRIMARY_COLOR,
                                         },
                                     })}
                                 >
@@ -74,7 +75,6 @@ class Dropdown extends Component { // eslint-disable-line
                                     </div>
                                 </Port>
                             ))}
-
                         </Ports>
                     </div>
                 )}

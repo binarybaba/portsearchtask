@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
 import DayPicker, { DateUtils } from 'react-day-picker';
-import { MIN_FROM_DATE, MAX_TO_DATE } from '../../../CONSTANT';
+import { MIN_FROM_DATE, MAX_TO_DATE, DATE_SELECTOR_NUMBER_OF_MONTHS } from '../../../CONSTANT';
 
-class Dates extends Component { // eslint-disable-line
-
+class Dates extends Component {
     state={};
 
     componentDidMount() {
         const { from, to } = this.props;
-        this.setState(() => ({
-            from: new Date(from),
-            to: new Date(to),
-        }));
-        // this.setState(() => this.getInitialState());
+        this.setState(() => ({ from: new Date(from), to: new Date(to) }));
     }
 
     handleDayClick(day) {
@@ -31,7 +26,7 @@ class Dates extends Component { // eslint-disable-line
             <DayPicker
                 className="Selectable"
                 month={from ? new Date(from.getFullYear(), from.getMonth()) : null}
-                numberOfMonths={2}
+                numberOfMonths={DATE_SELECTOR_NUMBER_OF_MONTHS}
                 selectedDays={[from, { from, to }]}
                 modifiers={modifiers}
                 onDayClick={day => this.handleDayClick(day)}

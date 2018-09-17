@@ -6,8 +6,7 @@ import { generateConfig, toTimestampSeries } from './Util';
 import { getRates } from './Api';
 
 
-class Chart extends Component { // eslint-disable-line
-
+class Chart extends Component {
     static propTypes = {
         from: PropTypes.string.isRequired, // eslint-disable-line
         to: PropTypes.string.isRequired, // eslint-disable-line
@@ -27,7 +26,23 @@ class Chart extends Component { // eslint-disable-line
         fetching: true,
     };
 
-    fetchRates(originPort, destinationPort, from, to) { // eslint-disable-line
+    componentDidMount() { // eslint-disable-line
+        this.fetchRates();
+    }
+
+    componentDidUpdate(prevProps) { // eslint-disable-line
+        if (JSON.stringify(prevProps) !== JSON.stringify(this.props)) {
+            this.fetchRates();
+        }
+    }
+
+    fetchRates() {
+        const {
+            originPort,
+            destinationPort,
+            from,
+            to,
+        } = this.props;
         this.setState(() => ({
             fetching: true,
             originPort,
@@ -36,31 +51,9 @@ class Chart extends Component { // eslint-disable-line
             to,
         }));
         getRates(originPort.id, destinationPort.id, from, to)
-            .then(res => this.setState({ rates: toTimestampSeries(res.data.rates) })) // eslint-disable-line
+            .then(res => this.setState({ rates: toTimestampSeries(res.data.rates) }))
             .catch(() => this.setState({ fetchError: true })) // eslint-disable-line
-            .then(() => this.setState({ fetching: false })); // eslint-disable-line
-    }
-
-    componentDidMount() { // eslint-disable-line
-        const {
-            originPort,
-            destinationPort,
-            from,
-            to,
-        } = this.props;
-        this.fetchRates(originPort, destinationPort, from, to);
-    }
-
-    componentDidUpdate(prevProps) { // eslint-disable-line
-        if (JSON.stringify(prevProps) !== JSON.stringify(this.props)) {
-            const {
-                originPort,
-                destinationPort,
-                from,
-                to,
-            } = this.props;
-            this.fetchRates(originPort, destinationPort, from, to);
-        }
+            .then(() => this.setState({ fetching: false }));
     }
 
     render() {
@@ -68,19 +61,15 @@ class Chart extends Component { // eslint-disable-line
             rates,
             fetching,
         } = this.state;
-        const options = generateConfig(
-            rates,
-        );
+        const options = generateConfig(rates);
         return (
             <div style={{ width: '100%' }}>
-                {fetching ? <div>Loading</div> : (
-                    <div>
-                        <HighchartsReact
-                            highcharts={Highcharts}
-                            options={options} // eslint-disable-line
-                            showLoading={fetching}
-                        />
-                    </div>
+                {fetching ? null : (
+                    <HighchartsReact
+                        highcharts={Highcharts}
+                        options={options}
+                        showLoading={fetching}
+                    />
                 )}
             </div>
         );

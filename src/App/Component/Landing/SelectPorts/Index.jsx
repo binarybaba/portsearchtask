@@ -1,16 +1,8 @@
-import React, { Component } from 'react'; // eslint-disable-line
-import Origin from './Origin/Index';
-import Destination from './Destination/Index';
+import React from 'react';
+import PortInput from './PortInput/Index';
+import { Form, PortField } from './Styled/Components';
 
-import {
-    Form,
-    PortField,
-} from './Styled/Components';
-
-class SelectPorts extends Component { // eslint-disable-line
-    state = {};
-
-    render() {
+const SelectPorts = (props) => {
         const {
             handleOriginPortChange,
             handleOriginPortClear,
@@ -20,12 +12,12 @@ class SelectPorts extends Component { // eslint-disable-line
             handleDestinationPortSelect,
             enableGo,
             handleGoForward,
-        } = this.props;
+        } = props;
         return (
             <div>
                 <Form>
                     <PortField>
-                        <Origin
+                        <PortInput
                             onChange={handleOriginPortChange}
                             onSelect={handleOriginPortSelect}
                             onClearSelection={handleOriginPortClear}
@@ -33,24 +25,19 @@ class SelectPorts extends Component { // eslint-disable-line
                         />
                     </PortField>
                     <PortField destination>
-                        <Destination
+                        <PortInput
                             onChange={handleDestinationPortChange}
                             onSelect={handleDestinationPortSelect}
                             onClearSelection={handleDestinationPortClear}
                             placeholder="Destination Port"
                         />
                     </PortField>
-                    <button
-                        type="submit"
-                        disabled={!enableGo}
-                        onClick={e => handleGoForward(e)}
-                    >
+                    <button type="submit" disabled={!enableGo} onClick={e => handleGoForward(e)}>
                         <i className="fas fa-search fa-2x" />
                     </button>
                 </Form>
             </div>
         );
-    }
-}
+};
 
 export default SelectPorts;

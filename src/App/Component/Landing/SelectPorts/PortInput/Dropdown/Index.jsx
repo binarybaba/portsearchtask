@@ -4,7 +4,8 @@ import Downshift from 'downshift';
 import {
     Ports,
     Port,
-} from '../../Landing/SelectPorts/Styled/Components';
+} from '../../../../shared/Components';
+import { PRIMARY_COLOR, SUBTLE_BACKGROUND_COLOR } from '../../../../../CONSTANT';
 
 class Dropdown extends Component {
     state = {
@@ -71,8 +72,10 @@ class Dropdown extends Component {
                                             item,
                                             key: item.id,
                                             style: {
-                                                backgroundColor: highlightedIndex === index ? '#212121' : '#fafafa',
-                                                color: highlightedIndex === index ? '#fafafa' : '#212121',
+                                                backgroundColor: highlightedIndex === index
+                                                    ? PRIMARY_COLOR : SUBTLE_BACKGROUND_COLOR,
+                                                color: highlightedIndex === index
+                                                    ? SUBTLE_BACKGROUND_COLOR : PRIMARY_COLOR,
                                             },
                                         })}
                                     >
