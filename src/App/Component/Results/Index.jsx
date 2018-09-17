@@ -6,6 +6,7 @@ import Chart from './Chart/Index';
 import { Logo } from '../Landing/Styled/Components';
 import { getPortDetails } from './Api';
 import { timeStampToISO, stringDateToHuman } from './Util';
+import { SubtleText } from './Styled/Components';
 import Dates from './Dates/Index';
 
 import {
@@ -33,7 +34,6 @@ class Results extends Component { // eslint-disable-line
     };
 
     handlePortChange(searchKey) {
-        console.log('user is typing');
         this.setState(() => ({userIsTyping: true}));
         return this.searchForPorts(searchKey);
     }
@@ -162,6 +162,7 @@ class Results extends Component { // eslint-disable-line
                                 onSelectOriginPort={this.handleOriginPortSelect.bind(this)}
                                 onSelectDestinationPort={this.handleDestinationPortSelect.bind(this)}
                             />
+                            <SubtleText userIsTyping={userIsTyping}>Click on the port names and type to change</SubtleText>
                         </HeadingWrapper>
                         <GraphWrapper userIsTyping={userIsTyping}>
                             <Chart

@@ -51,7 +51,6 @@ class Dropdown extends Component { // eslint-disable-line
                             type="text"
                             {...getInputProps({
                                 onChange: this.handleDownshiftInputChange.bind(this),
-                                onKeyDown: () => console.log(selectedItem),
 
                             })}
                         />

@@ -133,8 +133,6 @@ export const DateSelectorWrapper = styled.div`
 export const ResultsWrapper = styled.div`
     height: calc(100vh - 52px);
     width: 100%;
-    background: url("https://blog.gliderpath.com/wp-content/uploads/2015/07/background-pattern-vector.svg") no-repeat top center;
-    background-size:cover;
     position: relative;
     
 `;
@@ -162,6 +160,7 @@ export const Heading = styled.div`
     display: inline-block;
     text-align: center;
     > ul> li> div > input {
+        cursor: pointer;
         text-align: center;
         background-color: transparent;
         outline: none;
@@ -172,4 +171,19 @@ export const Heading = styled.div`
         font-size: 48px;
         text-transform: uppercase
     }
+    >ul> li> span {
+        text-align: center;
+        font-family: 'Ubuntu', sans-serif;
+        font-weight: 400;
+        font-size: 24px;
+        text-transform: uppercase
+    }
+`;
+
+export const SubtleText = styled.p`
+    text-align: center;
+    padding-top: 14px;
+    opacity: ${props => (props.userIsTyping ? '0' : '0.4')}
+    transition: opacity 0.2s ease-in-out;
+    
 `;
