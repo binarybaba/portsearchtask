@@ -45,9 +45,9 @@ export const PortField = styled.div`
         width: 77%;
         border: none;
         outline: none;
-        height: 64px;
+        height: 63px;
         margin: 0;
-        font-size: 1.11765rem;s
+        font-size: 1.11765rem;
         padding-right: 3.23529rem;
         padding-left: 1.47059rem;
         border: 1px solid transparent;
