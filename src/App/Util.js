@@ -28,6 +28,7 @@ const debouncePlain = (fn) => {
 };
 
 export {
-    debouncePlain, // eslint-disable-line
+    debouncePlain,
     debounce,
+    WAIT_MILLISECONDS,
 };
