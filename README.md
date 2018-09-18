@@ -82,3 +82,70 @@ on a specific date within the dataset, the price is set to `null`.
 When evaluating the code, we will install dependencies, run a single build, then start the development server.
 
 </details>
+
+# Solution
+
+This project is made on React in JSX with [Styled Components](https://www.styled-components.com/) instead of native css.
+Redux isn't used since I was running on the clock so I resorted to [State lifting](https://reactjs.org/docs/lifting-state-up.html)
+which is something I don't like.
+
+### Demo Instructions
+
+First, clone the repository. Then do a:
+```
+yarn
+```
+Will install all the dependencies and development dependencies. Then do a:
+```
+yarn dev
+```
+
+That's it.
+
+--------------
+
+
+
+`yarn dev` will first fire the API server (so you dont have to start a development server manually) included in the task and then fire a `webpack-dev-server` which will bundle
+the files and open up our browser to `localhost:8080`. Doing this first time will take about 10 seconds. It will then start watching for changes
+in the `src` folder and refresh the page automatically as we make the changes to our js files. Consecutive reloads will be in milliseconds.
+
+> Note: Ive made some changes to the build process before starting to code.
+>We were using ejs templating to render the index
+> but in this solution, I had to remove that. Instead, a normal html page is displayed. I think this also
+> eases up the build process when it comes to generating index.htmls for CI/CD (we can attach hash chunks to the name of
+or bundle files and inject it inside the html).
+>
+> But this was only done to make the devServer compatible and live reload the index.
+> Ive also moved certain dependencies from dependencies to devDependencies in `package.json`
+> You can find all the rest of the changes on this commit id `99a217622e7ffd51a4ba98c184788c7974839f7f`
+
+
+
+
+### Tests
+
+I've also written some basic unit tests. It doesn't do a 100% coverage. But I completed this before hand and was left with a couple of hours
+so I went ahead and added some tests. We're using
+ - Facebook's [Jest](https://jestjs.io/) as our test runner and assertion library,
+ - AirBnB's [Enzyme](http://airbnb.io/enzyme/) for some tooling on our tests,
+ - [Sinon](https://sinonjs.org/) for spying and
+ - Kent C. Dodd's [React Testing Library](https://github.com/kentcdodds/react-testing-library) for actual DOM testing because using Enzyme to simulate actual events was becoming a pain.
+
+ To run the tests, we need to do a
+ ```
+ yarn test
+ ```
+
+ Since Jest also gives us a beautiful test coverage, we can also do a
+ ```
+ yarn coverage
+ ```
+Jest internally uses [Istanbul](https://istanbul.js.org/) to provide code coverage. Right now,
+I've added some configs on our to `package.json` to put all the coverage report in the
+`.coverage` folder. It's gitignored right now but once you run the above command,
+it should make this folder. To see the report, just open the `index.html` inside the `.coverage` folder
+
+I had a fun time doing this. It actually made realize Enzyme's shortcomings when it comes to simulating
+actual DOM events. That's when I looked at React Testing Library and immediately fell in love with it.
+Cheers!
