@@ -1,5 +1,8 @@
 # My First Xeneta
 
+<details>
+<summary>Task</summary>
+
 We are providing a simplified real-world usage scenario of a core
 Xeneta feature. In our system, users are given the option to search
 for origin and destination ports by name, and see a visualisation of
@@ -32,7 +35,7 @@ combination, within a customizable date range.
 * Make it efficient, limit network use, and load fast
 * Feel free to add your personal flair
 
-Please read the full document for the details on the build process and the APIs. 
+Please read the full document for the details on the build process and the APIs.
 
 # Building
 The project will build HTML using EJS templates from the `views` folder. Client-side JavaScript is built
@@ -77,3 +80,5 @@ on a specific date within the dataset, the price is set to `null`.
 
 # Evaluation
 When evaluating the code, we will install dependencies, run a single build, then start the development server.
+
+</details>
